@@ -189,11 +189,12 @@ func (ee *EtcdEngine) SetWithRelease(key string, val []byte, ttl time.Duration, 
 	}
 
 	if keepAlive {
-		//respCh, kaerr := ee.clt.KeepAlive(context.TODO(), resp.ID)
 		_, kaerr := ee.clt.KeepAlive(context.TODO(), resp.ID)
 		if kaerr != nil {
 			glog.Fatal(kaerr)
 		}
+		// FIXME: use stopCh to graceful exit from etcd keepalived connection
+		//respCh, kaerr := ee.clt.KeepAlive(context.TODO(), resp.ID)
 		//go func() {
 		//	for {
 		//		select {
